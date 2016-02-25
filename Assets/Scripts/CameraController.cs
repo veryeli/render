@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void Update() {
-		bool colorAddMode = player.GetComponent<PlayerController>().colorAddMode;
+		bool colorAddMode = player.GetComponent<PlayerController>().getColorAddMode();
 
 		if (colorAddMode) {
 			cam.backgroundColor = Color.white;

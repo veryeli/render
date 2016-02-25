@@ -6,15 +6,14 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
 	public float speed;
-	public Renderer rend;
-	public bool colorAddMode = true;
+	private bool colorAddMode = true;
 	public GameObject portal;
 	public ColorManager cm;
 
 	// Use this for initialization
 	void Start () {
+		colorAddMode = true;
 		rb = GetComponent<Rigidbody> ();
-		rend = GetComponent<Renderer>();
 	}
 
 	// Update is called once per frame
@@ -27,19 +26,34 @@ public class PlayerController : MonoBehaviour {
 			moveUp = 1f;
 		}
 		if (Input.GetButtonDown("Jump")) {
-			colorAddMode = !colorAddMode;
+			ToggleColorMode();
 		}
 
-		cm.setColor (cm.color);
 
 		Vector3 movement = new Vector3 (moveHorizontal, moveUp, moveVertical) * speed;
 		rb.AddForce (movement);
 	}
 
+	public void ToggleColorMode() {
+		colorAddMode = !colorAddMode;
+	}
+
+	public bool getColorAddMode() {
+		return colorAddMode;
+	}
+
+	void ResetColor() {
+		if (colorAddMode) {
+			cm.setColor ("white");
+		} else {
+			cm.setColor ("black");
+		}
+	}
+
 	IEnumerator OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag ("showermat")) {
-			cm.setColor ("white");
+			ResetColor();
 			GameObject showerObject = other.gameObject.transform.parent.gameObject;
 			showerObject.GetComponent<Shower>().resetAssociatedObjects ();
 			yield break;
@@ -52,9 +66,10 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("pickup")) {
 			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
 			other.gameObject.SetActive (false);
-//			print ("Just bumped into a yummy snack...");
-//			print (cm.color);
-//			print (otherColor);
+			print ("Just bumped into a yummy snack...");
+			print (cm.color);
+			print (otherColor);
+			print (colorAddMode);
 			if (colorAddMode) {
 				cm.addColor (otherColor);
 			} else {
@@ -68,7 +83,7 @@ public class PlayerController : MonoBehaviour {
 				GameObject portalObject = other.gameObject;
 				portalObject.GetComponent<Portal>().deleteAssociatedObjects ();
 				portalObject.SetActive (false);
-				cm.setColor ("white");
+				ResetColor ();
 			}
 		}
 	}

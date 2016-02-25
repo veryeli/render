@@ -57,7 +57,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 	}
 	void SpawnBlueRoom() {
 		int offset = 60;
-		GameObject[] pickups = SpawnPickUps(secondaries, offset);
+		GameObject[] pickups = SpawnPickUps(primaries, offset);
 		SpawnPortal ("blue", offset, pickups);
 	}
 
@@ -98,7 +98,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 	}
 	void SpawnYellowRoom() {
 		int offset = 60;
-		GameObject[] pickups = SpawnPickUps(primaries, offset);
+		GameObject[] pickups = SpawnPickUps(secondaries, offset);
 		SpawnPortal ("yellow", offset, pickups);
 	}
 	void SpawnSubtractiveWinRoom() {
@@ -155,7 +155,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 		GameObject p = (GameObject) Instantiate(player, pos, Quaternion.identity);
 		cam.GetComponent<CameraController> ().player = p;
 		p.GetComponent<ColorManager>().addColor("black");
-		p.GetComponent<PlayerController>().colorAddMode = false;
+		p.GetComponent<PlayerController>().ToggleColorMode();
 	}
 
 }
