@@ -43,14 +43,18 @@ public class PlayerController : MonoBehaviour {
 
 	IEnumerator OnTriggerEnter(Collider other) 
 	{
-		if (other.gameObject.CompareTag ("shower")) {
+		if (other.gameObject.CompareTag ("showermat")) {
 			cm.setColor ("white");
+			GameObject showerObject = other.gameObject.transform.parent.gameObject;
+			showerObject.GetComponent<Shower>().resetAssociatedObjects ();
 			yield break;
 		}
 		if (other.gameObject.CompareTag ("winportal")) {
 			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel();
 		}
-			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
+
+		string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
+
 		if (other.gameObject.CompareTag ("pickup")) {
 			other.gameObject.SetActive (false);
 			score++;

@@ -60,11 +60,13 @@ public class ColorLevelSpawner : MonoBehaviour {
 
 	void SpawnPortal(string color, float zOffset, GameObject[] pickups) {
 		Vector3 pos = new Vector3(0, 0.5f, zOffset + 10);
-		Vector3 showerPos = new Vector3(5f, 0.0f, zOffset + 9);
-		Instantiate(shower, showerPos, new Quaternion(0, 210, 0, 0));
 		GameObject portalObject = (GameObject) Instantiate(portal, pos, Quaternion.identity);
 		portalObject.GetComponent<ColorManager>().addColor(color);
 		portalObject.GetComponent<Portal>().setPickups (pickups);
+
+		Vector3 showerPos = new Vector3(5f, 0.0f, zOffset + 9);
+		GameObject showerObject = (GameObject) Instantiate(shower, showerPos, new Quaternion(0, 210, 0, 0));
+		showerObject.GetComponent<Shower>().setPickups (pickups);
 	}
 
 }
