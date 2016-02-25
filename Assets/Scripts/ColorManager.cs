@@ -22,6 +22,12 @@ public class ColorManager : MonoBehaviour
 		setColor(colorComboFor (color, c));
 	}
 
+	public void subtractColor (string c)
+	{
+		rend = GetComponent<Renderer>();
+		setColor(subtractiveComboFor (color, c));
+	}
+
 	static string colorName (string name)
 	{
 //		print ("mushy name " + name);
@@ -47,14 +53,43 @@ public class ColorManager : MonoBehaviour
 		default:
 			return name;
 		}
+	}
 
+	static string subtractiveColorName (string name)
+	{
+		print ("mushy name " + name);
+		switch (name) {
+		case "blackred":
+			return "cyan";
+		case "blackgreen":
+			return "magenta";
+		case "blackblue":
+			return "yellow";
+		case "blackcyan":
+			return "red";
+		case "blackmagenta":
+			return "green";
+		case "blackyellow":
+			return "blue";
+		case "cyangreen":
+			return "magenta";
+		case "cyanblue":
+			return "yellow";
+		case "redyellow":
+			return "cyan";
+		case "greenyellow":
+			return "magenta";
+		case "magentared":
+			return "cyan";
+		case "bluemagenta":
+			return "yellow";
+		default:
+			return name;
+		}
 	}
 
 	static string colorComboFor (string one, string two)
 	{
-//		print ("ok here goes...");
-//		print (one);
-//		print (two);
 		if (one == "white" || one == two) {
 			return two;
 		} else if (two == "white") {
@@ -63,6 +98,21 @@ public class ColorManager : MonoBehaviour
 			return colorName (one + two);
 		} else {
 			return colorName (two + one);
+		}
+
+	}
+
+	static string subtractiveComboFor (string one, string two)
+	{
+		if (one == two) {
+			return two;
+		} 
+		else if (two == "white" || one == "white") {
+			return "white";
+		} else if (string.Compare (one, two) < 0) {
+			return subtractiveColorName (one + two);
+		} else {
+			return subtractiveColorName (two + one);
 		}
 
 	}

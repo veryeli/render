@@ -6,10 +6,12 @@ public class ColorLevelSpawner : MonoBehaviour {
 	public GameObject pickup;
 	public GameObject portal;
 	public GameObject shower;
+	public GameObject player;
 	public int level;
 	public static int numberOfObjects = 20;
 	public float radius = 7f;
 	public static string[] primaries = new string[]{"yellow", "magenta", "cyan"};
+	public static string[] secondaries = new string[]{"red", "green", "blue"};
 
 	// Use this for initialization
 	void Start () {
@@ -31,27 +33,17 @@ public class ColorLevelSpawner : MonoBehaviour {
 			SpawnWinRoom ();
 		}
 		if (level == 5 || level == 0) {
-			SpawnFirstRoom ();
-			SpawnRedRoom ();
-			SpawnGreenRoom ();
-			SpawnBlueRoom ();
-			SpawnWinRoom ();
+			SetPlayerSubtractive ();
+			SpawnFirstSubtractiveRoom ();
+			SpawnCyanRoom ();
+			SpawnYellowRoom ();
+			SpawnMagentaRoom ();
+			SpawnSubtractiveWinRoom ();
 		}
 	
 	}
 
-	void SpawnFirstRoom() {
-		GameObject[] pickups = SpawnPickUps(new string[]{"cyan"}, 0);
-		SpawnPortal ("cyan", 0, pickups);
-	}
-	void SpawnShowerRoom() {
-		SpawnPickupCircle ("magenta");
-		SpawnPortal ("white", 0, new GameObject[]{});
-	}
-	void SpawnSecondShowerRoom() {
-		SpawnFirstRoom ();
-		SpawnPickupCircle ("magenta");
-	}
+	// basic additive color rooms
 	void SpawnRedRoom() {
 		int offset = 20;
 		GameObject[] pickups = SpawnPickUps(primaries, offset);
@@ -64,14 +56,58 @@ public class ColorLevelSpawner : MonoBehaviour {
 	}
 	void SpawnBlueRoom() {
 		int offset = 60;
-		GameObject[] pickups = SpawnPickUps(primaries, offset);
+		GameObject[] pickups = SpawnPickUps(secondaries, offset);
 		SpawnPortal ("blue", offset, pickups);
 	}
+
+	// 	Special additive color rooms
+	void SpawnFirstRoom() {
+		GameObject[] pickups = SpawnPickUps(new string[]{"cyan"}, 0);
+		SpawnPortal ("cyan", 0, pickups);
+	}
+	void SpawnShowerRoom() {
+		SpawnPickupCircle ("magenta");
+		SpawnPortal ("white", 0, new GameObject[]{});
+	}
+	void SpawnSecondShowerRoom() {
+		SpawnFirstRoom ();
+		SpawnPickupCircle ("magenta");
+	}
+		
 	void SpawnWinRoom() {
 		int offset = 80;
 		GameObject[] pickups = SpawnPickUps(primaries, offset);
 		SpawnPortal ("black", offset, pickups);
 	}
+
+	// Subtractive Rooms
+	void SpawnFirstSubtractiveRoom() {
+		GameObject[] pickups = SpawnPickUps(new string[]{"red"}, 0);
+		SpawnPortal ("cyan", 0, pickups);
+	}
+	void SpawnCyanRoom() {
+		int offset = 20;
+		GameObject[] pickups = SpawnPickUps(secondaries, offset);
+		SpawnPortal ("cyan", offset, pickups);
+	}
+	void SpawnMagentaRoom() {
+		int offset = 40;
+		GameObject[] pickups = SpawnPickUps(secondaries, offset);
+		SpawnPortal ("magenta", offset, pickups);
+	}
+	void SpawnYellowRoom() {
+		int offset = 60;
+		GameObject[] pickups = SpawnPickUps(primaries, offset);
+		SpawnPortal ("yellow", offset, pickups);
+	}
+	void SpawnSubtractiveWinRoom() {
+		int offset = 80;
+		GameObject[] pickups = SpawnPickUps(secondaries, offset);
+		SpawnPortal ("white", offset, pickups);
+	}
+		
+
+	// Item spawning
 
 	GameObject[] SpawnPickUps(string[] puColors, float zOffset) {
 		GameObject[] pickups;
@@ -109,6 +145,14 @@ public class ColorLevelSpawner : MonoBehaviour {
 		portalObject.GetComponent<ColorManager>().addColor(color);
 		portalObject.GetComponent<Portal>().setPickups (pickups);
 		portalObject.GetComponent<Portal> ().shower = showerObject;
+	}
+
+	// state setting
+	void SetPlayerSubtractive() {
+		Vector3 pos = new Vector3(0, 0.5f, 0);
+		GameObject p = (GameObject) Instantiate(player, pos, Quaternion.identity);
+		p.GetComponent<ColorManager>().addColor("black");
+		p.GetComponent<PlayerController>().colorAddMode = false;
 	}
 
 }

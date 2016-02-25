@@ -56,7 +56,11 @@ public class PlayerController : MonoBehaviour {
 //			print ("Just bumped into a yummy snack...");
 //			print (cm.color);
 //			print (otherColor);
-			cm.addColor(otherColor);
+			if (colorAddMode) {
+				cm.addColor (otherColor);
+			} else {
+				cm.subtractColor (otherColor);
+			}
 		}
 		if (other.gameObject.CompareTag ("portal")) {
 			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
