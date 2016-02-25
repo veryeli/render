@@ -20,13 +20,24 @@ public class ColorLevelSpawner : MonoBehaviour {
 		if (level == 2) {
 			SpawnShowerRoom ();
 		}
-		if (level == 3 || level == 0) {
+		if (level == 3) {
+			SpawnSecondShowerRoom ();
+		}
+		if (level == 4 || level == 0) {
 			SpawnFirstRoom ();
 			SpawnRedRoom ();
 			SpawnGreenRoom ();
 			SpawnBlueRoom ();
 			SpawnWinRoom ();
 		}
+		if (level == 5 || level == 0) {
+			SpawnFirstRoom ();
+			SpawnRedRoom ();
+			SpawnGreenRoom ();
+			SpawnBlueRoom ();
+			SpawnWinRoom ();
+		}
+	
 	}
 
 	void SpawnFirstRoom() {
@@ -34,6 +45,10 @@ public class ColorLevelSpawner : MonoBehaviour {
 		SpawnPortal ("cyan", 0, pickups);
 	}
 	void SpawnShowerRoom() {
+		SpawnPickupCircle ("magenta");
+		SpawnPortal ("white", 0, new GameObject[]{});
+	}
+	void SpawnSecondShowerRoom() {
 		SpawnFirstRoom ();
 		SpawnPickupCircle ("magenta");
 	}
@@ -63,7 +78,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 		pickups = new GameObject[puColors.Length];
 
 		for (int i = 0; i < puColors.Length; i++) {
-			Vector3 pos = new Vector3(4 * (puColors.Length / 2 - i), 0.5f, zOffset + 3);
+			Vector3 pos = new Vector3(4 * (puColors.Length / 2 - i), 0.5f, zOffset + 4);
 			GameObject pu = (GameObject) Instantiate(pickup, pos, Quaternion.identity);
 			pu.GetComponent<ColorManager>().addColor(puColors[i]);
 			pickups [i] = pu;

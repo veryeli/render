@@ -32,6 +32,9 @@ public class Fading : MonoBehaviour {
 		if (level == 3) {
 			texture = thirdSceneTexture;
 		}
+		if (level == 4) {
+			texture = finalTexture;
+		}
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), texture);
 	}
 
