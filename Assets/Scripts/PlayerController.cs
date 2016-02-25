@@ -6,9 +6,6 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
 	public float speed;
-	private int score;
-	public Text scoreText;
-	public Text winText;
 	public Renderer rend;
 	public bool colorAddMode;
 	public GameObject portal;
@@ -17,7 +14,6 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		score = 0;
 		rend = GetComponent<Renderer>();
 		colorAddMode = true;
 	}
@@ -57,7 +53,6 @@ public class PlayerController : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("pickup")) {
 			other.gameObject.SetActive (false);
-			score++;
 //			print ("Just bumped into a yummy snack...");
 //			print (cm.color);
 //			print (otherColor);
