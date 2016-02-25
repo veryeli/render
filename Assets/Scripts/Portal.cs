@@ -4,6 +4,7 @@ using System.Collections;
 public class Portal : MonoBehaviour {
 
 	private GameObject[] pickups;
+	public GameObject shower;
 
 	// very enterprise
 	public void setPickups (GameObject[] p) {
@@ -15,6 +16,8 @@ public class Portal : MonoBehaviour {
 			GameObject pickupObject = pickups [i];
 			pickupObject.SetActive (false);
 		}
+
+		shower.SetActive (false);
 	}
 		
 }
