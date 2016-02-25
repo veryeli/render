@@ -12,17 +12,15 @@ public class PlayerController : MonoBehaviour {
 	public Renderer rend;
 	public bool colorAddMode;
 	public GameObject portal;
+	public ColorManager cm;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		score = 0;
-		SetText();
-		winText.text = "";
 		rend = GetComponent<Renderer>();
 		colorAddMode = true;
 	}
-
 
 	// Update is called once per frame
 	void FixedUpdate () 
@@ -36,59 +34,39 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButtonDown("Jump")) {
 			colorAddMode = !colorAddMode;
 		}
+
+		cm.setColor (cm.color);
 			
 		Vector3 movement = new Vector3 (moveHorizontal, moveUp, moveVertical) * speed;
 		rb.AddForce (movement);
 	}
 
-	void OnTriggerEnter(Collider other) 
+	IEnumerator OnTriggerEnter(Collider other) 
 	{
+		if (other.gameObject.CompareTag ("shower")) {
+			cm.setColor ("white");
+			yield break;
+		}
+		if (other.gameObject.CompareTag ("winportal")) {
+			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel();
+		}
+			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
 		if (other.gameObject.CompareTag ("pickup")) {
 			other.gameObject.SetActive (false);
 			score++;
-			SetText();
-			addColor(other.gameObject);
+//			print ("Just bumped into a yummy snack...");
+//			print (cm.color);
+//			print (otherColor);
+			cm.addColor(otherColor);
 		}
 		if (other.gameObject.CompareTag ("portal")) {
-			if (matchesPortalColor()) {
-				other.gameObject.SetActive (false);
+//			print("bumped into a portal");
+			if (cm.color == otherColor) {
+				GameObject portalObject = other.gameObject;
+				portalObject.GetComponent<Portal>().deleteAssociatedObjects ();
+				portalObject.SetActive (false);
+				cm.setColor ("white");
 			}
-		}
-	}
-
-	void addColor(GameObject other) 
-	{
-		if (colorAddMode) {
-			AddColor(colorOf(other));
-		}
-		else {
-			AddColor(-1 * colorOf(other));
-		}
-	}
-
-	Color colorOf(GameObject other) {
-		return other.GetComponent<Renderer>().material.color;;
-	}
-
-	bool matchesPortalColor() {
-		return colorOf (portal).Equals(rend.material.color);
-	}
-
-	void AddColor(Color otherColor) {
-		rend.material.color += otherColor;
-		Color c = rend.material.color;
-		rend.material.color = new Color (
-			(c.r >= 0) ? c.r : 0,
-			c.g,
-			c.b
-		);
-	}
-
-	void SetText()
-	{
-		scoreText.text = "Score: " + score.ToString ();
-		if (score >= PickUpSpawner.numberOfObjects) {
-			winText.text = "You Win";
 		}
 	}
 }

@@ -1,21 +1,97 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ColorManager : MonoBehaviour {
+public class ColorManager : MonoBehaviour
+{
 
-	public Renderer renderer;
-	public Color color;
+	public string color = "white";
+	private Renderer rend;
+	public Color white = new Color(1.0f, 1.0f, 1.0f);
+	public Color black = new Color(0.0f, 0.0f, 0.0f);
 
 	// Use this for initialization
 	void Start () {
-		renderer = GetComponent<Renderer>();
+		rend = GetComponent<Renderer>();
+		rend.material.color = currentColor ();
+	}
+		
+
+	public void addColor (string c)
+	{
+		rend = GetComponent<Renderer>();
+		setColor(colorComboFor (color, c));
 	}
 
-	void setColor(Color c) {
-		renderer.material.color = c;
+	static string colorName (string name)
+	{
+//		print ("mushy name " + name);
+		switch (name) {
+		case "bluered":
+			return "magenta";
+		case "bluegreen":
+			return "cyan";
+		case "greenred":
+			return "yellow";
+		case "cyanmagenta":
+			return "blue";
+		case "magentayellow":
+			return "red";
+		case "cyanyellow":
+			return "green";
+		case "cyanred":
+			return "black";
+		case "greenmagenta":
+			return "black";
+		case "blueyellow":
+			return "black";
+		default:
+			return name;
+		}
+
 	}
 
-	Color getColor () {
-		return renderer.material.color;
+	static string colorComboFor (string one, string two)
+	{
+//		print ("ok here goes...");
+//		print (one);
+//		print (two);
+		if (one == "white" || one == two) {
+			return two;
+		} else if (two == "white") {
+			return one;
+		} else if (string.Compare (one, two) < 0) {
+			return colorName (one + two);
+		} else {
+			return colorName (two + one);
+		}
+
+	}
+
+	Color currentColor ()
+	{
+		switch (color) {
+		case "red":
+			return new Color(1f, 36.0f/255.0f, 31.0f/255.0f);
+		case "green":
+			return new Color(55.0f/255.0f,  186.0f/255.0f, 51.0f/255.0f);
+		case "blue":
+			return new Color(18.0f/255.0f,  123.0f/255.0f, 242.0f/255.0f);
+		case "cyan":
+			return new Color(0.0f, 1.0f, 1.0f);
+		case "magenta":
+			return new Color(1.0f, 0.0f, 1.0f);
+		case "yellow":
+			return new Color(1.0f, 1.0f, 0.0f);
+		case "black":
+			return new Color(73.0f/255.0f,  73.0f/255.0f, 73.0f/255.0f);
+		default:
+			return white;
+		}
+	}
+
+
+	public void setColor(string newColor) {
+		color = newColor;
+		rend.material.color = currentColor ();
 	}
 }
