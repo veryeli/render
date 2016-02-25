@@ -7,6 +7,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 	public GameObject portal;
 	public GameObject shower;
 	public GameObject player;
+	public GameObject mainCam;
 	public int level;
 	public static int numberOfObjects = 20;
 	public float radius = 7f;
@@ -150,7 +151,9 @@ public class ColorLevelSpawner : MonoBehaviour {
 	// state setting
 	void SetPlayerSubtractive() {
 		Vector3 pos = new Vector3(0, 0.5f, 0);
+		GameObject cam = (GameObject) Instantiate(mainCam, new Vector3(0, 3, -5), new Quaternion(0, 0, 0, 1));
 		GameObject p = (GameObject) Instantiate(player, pos, Quaternion.identity);
+		cam.GetComponent<CameraController> ().player = p;
 		p.GetComponent<ColorManager>().addColor("black");
 		p.GetComponent<PlayerController>().colorAddMode = false;
 	}

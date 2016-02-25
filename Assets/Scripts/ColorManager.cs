@@ -57,7 +57,7 @@ public class ColorManager : MonoBehaviour
 
 	static string subtractiveColorName (string name)
 	{
-		print ("mushy name " + name);
+		print ("mushy subtractive name " + name);
 		switch (name) {
 		case "blackred":
 			return "cyan";

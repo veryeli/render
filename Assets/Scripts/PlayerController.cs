@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
 	public float speed;
 	public Renderer rend;
-	public bool colorAddMode;
+	public bool colorAddMode = true;
 	public GameObject portal;
 	public ColorManager cm;
 
@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		rend = GetComponent<Renderer>();
-		colorAddMode = true;
 	}
 
 	// Update is called once per frame
