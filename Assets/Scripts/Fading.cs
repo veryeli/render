@@ -9,7 +9,7 @@ public class Fading : MonoBehaviour {
 	public Texture2D secondSceneTexture;// Will overlay scene
 	public Texture2D thirdSceneTexture;// Will overlay scene
 	public Texture2D finalTexture;// Will overlay scene
-	public float fadeSpeed = 0.0f;
+	public float fadeSpeed = 0.3f;
 
 	private int drawDepth = -1000;
 	private float alpha = 1.0f;
@@ -26,10 +26,10 @@ public class Fading : MonoBehaviour {
 		GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, alpha);
 		GUI.depth = drawDepth;
 		Texture2D texture = startTexture;
-		if (level == 1) {
+		if (level == 2) {
 			texture = secondSceneTexture;
 		}
-		if (level == 2) {
+		if (level == 3) {
 			texture = thirdSceneTexture;
 		}
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), texture);
@@ -41,19 +41,10 @@ public class Fading : MonoBehaviour {
 		return (fadeSpeed);  // do this to time Application.LoadLevel
 	}
 		
-		
 
 	public IEnumerator LoadNextLevel() {
-		level += 1;
-//		print ("Level" + level);
-		SceneManager.LoadScene ("Level3");
-		yield return new WaitForSeconds (1);
-		new WaitForSeconds (1);
 		BeginFade (-1);
-	}
-
-
-	void Awake() {
-		DontDestroyOnLoad(transform.gameObject);
+		SceneManager.LoadScene ("Level" + (level + 1));
+		yield return new WaitForSeconds (1);
 	}
 }

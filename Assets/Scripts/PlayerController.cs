@@ -48,10 +48,10 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("winportal")) {
 			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel();
 		}
-
-		string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
+			
 
 		if (other.gameObject.CompareTag ("pickup")) {
+			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
 			other.gameObject.SetActive (false);
 //			print ("Just bumped into a yummy snack...");
 //			print (cm.color);
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour {
 			cm.addColor(otherColor);
 		}
 		if (other.gameObject.CompareTag ("portal")) {
+			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
 //			print("bumped into a portal");
 			if (cm.color == otherColor) {
 				GameObject portalObject = other.gameObject;
