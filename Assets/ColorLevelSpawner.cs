@@ -6,22 +6,36 @@ public class ColorLevelSpawner : MonoBehaviour {
 	public GameObject pickup;
 	public GameObject portal;
 	public GameObject shower;
+	public int level;
 	public static int numberOfObjects = 20;
 	public float radius = 7f;
 	public static string[] primaries = new string[]{"yellow", "magenta", "cyan"};
 
 	// Use this for initialization
 	void Start () {
-		SpawnFirstRoom ();
-		SpawnRedRoom ();
-		SpawnGreenRoom ();
-		SpawnBlueRoom ();
-		SpawnWinRoom ();
+		print (level);
+		if (level == 1) {
+			SpawnFirstRoom ();
+		}
+		if (level == 2) {
+			SpawnShowerRoom ();
+		}
+		if (level == 3 || level == 0) {
+			SpawnFirstRoom ();
+			SpawnRedRoom ();
+			SpawnGreenRoom ();
+			SpawnBlueRoom ();
+			SpawnWinRoom ();
+		}
 	}
 
 	void SpawnFirstRoom() {
 		GameObject[] pickups = SpawnPickUps(new string[]{"cyan"}, 0);
 		SpawnPortal ("cyan", 0, pickups);
+	}
+	void SpawnShowerRoom() {
+		SpawnFirstRoom ();
+		SpawnPickupCircle ("magenta");
 	}
 	void SpawnRedRoom() {
 		int offset = 20;
@@ -56,6 +70,18 @@ public class ColorLevelSpawner : MonoBehaviour {
 		}
 
 		return pickups;
+	}
+
+	void SpawnPickupCircle(string color) {
+		numberOfObjects = 8;
+		for (int i = 0; i < numberOfObjects; i++) {
+			float angle = i * Mathf.PI * 2 / numberOfObjects;
+			pickup.transform.position = transform.position; 
+			Vector3 pos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * 2; // original line
+			GameObject show = (GameObject) Instantiate(pickup , pos, Quaternion.identity);
+			show.GetComponent<ColorManager>().addColor(color);
+		}
+
 	}
 
 	void SpawnPortal(string color, float zOffset, GameObject[] pickups) {

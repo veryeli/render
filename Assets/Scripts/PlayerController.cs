@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void FixedUpdate () 
+	void FixedUpdate ()
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
@@ -36,12 +36,12 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		cm.setColor (cm.color);
-			
+
 		Vector3 movement = new Vector3 (moveHorizontal, moveUp, moveVertical) * speed;
 		rb.AddForce (movement);
 	}
 
-	IEnumerator OnTriggerEnter(Collider other) 
+	IEnumerator OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag ("showermat")) {
 			cm.setColor ("white");

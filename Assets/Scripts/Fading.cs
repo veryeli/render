@@ -46,7 +46,7 @@ public class Fading : MonoBehaviour {
 	public IEnumerator LoadNextLevel() {
 		level += 1;
 //		print ("Level" + level);
-		SceneManager.LoadScene ("Level2");
+		SceneManager.LoadScene ("Level3");
 		yield return new WaitForSeconds (1);
 		new WaitForSeconds (1);
 		BeginFade (-1);
