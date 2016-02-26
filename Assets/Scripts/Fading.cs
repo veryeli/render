@@ -8,6 +8,8 @@ public class Fading : MonoBehaviour {
 	public Texture2D startTexture;// Will overlay scene
 	public Texture2D secondSceneTexture;// Will overlay scene
 	public Texture2D thirdSceneTexture;// Will overlay scene
+	public Texture2D fourthSceneTexture;// Will overlay scene
+	public Texture2D fifthSceneTexture;// Will overlay scene
 	public Texture2D finalTexture;// Will overlay scene
 	public float fadeSpeed = 0.3f;
 
@@ -17,24 +19,17 @@ public class Fading : MonoBehaviour {
 	public int level = 1;
 
 	void OnGUI () {
-		// fade in and out alpha
-		alpha += fadeDir * fadeSpeed * Time.deltaTime;
+		if (level != 6) {
+			// fade in and out alpha
+			alpha += fadeDir * fadeSpeed * Time.deltaTime;
+		}
 		// clamp value from 0-1
 		alpha = Mathf.Clamp01(alpha);
 
 		//set gui color
 		GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, alpha);
 		GUI.depth = drawDepth;
-		Texture2D texture = startTexture;
-		if (level == 2) {
-			texture = secondSceneTexture;
-		}
-		if (level == 3) {
-			texture = thirdSceneTexture;
-		}
-		if (level == 4) {
-			texture = finalTexture;
-		}
+		Texture2D texture = currentTexture ();
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), texture);
 	}
 
@@ -45,9 +40,27 @@ public class Fading : MonoBehaviour {
 	}
 		
 
+	Texture2D currentTexture() {
+		switch (level) {
+		case 1:
+			return startTexture;
+		case 2:
+			return secondSceneTexture;
+		case 3:
+			return thirdSceneTexture;
+		case 4:
+			return fourthSceneTexture;
+		case 5:
+			return fifthSceneTexture;
+		default:
+			return finalTexture;
+		}
+	}
+
 	public IEnumerator LoadNextLevel() {
 		BeginFade (-1);
+		yield return new WaitForSeconds (.2f);
 		SceneManager.LoadScene ("Level" + (level + 1));
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (3);
 	}
 }
