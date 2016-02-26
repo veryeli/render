@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 591bca1ab73504a2e874566a830c6ddd
+timeCreated: 1456438450
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Santa_Claus
+    100002: //RootNode
+    100004: Santa_Claus_MeshPart0
+    100006: Santa_Claus_MeshPart1
+    100008: Santa_Claus_MeshPart10
+    100010: Santa_Claus_MeshPart11
+    100012: Santa_Claus_MeshPart12
+    100014: Santa_Claus_MeshPart13
+    100016: Santa_Claus_MeshPart14
+    100018: Santa_Claus_MeshPart15
+    100020: Santa_Claus_MeshPart2
+    100022: Santa_Claus_MeshPart3
+    100024: Santa_Claus_MeshPart4
+    100026: Santa_Claus_MeshPart5
+    100028: Santa_Claus_MeshPart6
+    100030: Santa_Claus_MeshPart7
+    100032: Santa_Claus_MeshPart8
+    100034: Santa_Claus_MeshPart9
+    400000: Santa_Claus
+    400002: //RootNode
+    400004: Santa_Claus_MeshPart0
+    400006: Santa_Claus_MeshPart1
+    400008: Santa_Claus_MeshPart10
+    400010: Santa_Claus_MeshPart11
+    400012: Santa_Claus_MeshPart12
+    400014: Santa_Claus_MeshPart13
+    400016: Santa_Claus_MeshPart14
+    400018: Santa_Claus_MeshPart15
+    400020: Santa_Claus_MeshPart2
+    400022: Santa_Claus_MeshPart3
+    400024: Santa_Claus_MeshPart4
+    400026: Santa_Claus_MeshPart5
+    400028: Santa_Claus_MeshPart6
+    400030: Santa_Claus_MeshPart7
+    400032: Santa_Claus_MeshPart8
+    400034: Santa_Claus_MeshPart9
+    2300000: Santa_Claus_MeshPart0
+    2300002: Santa_Claus_MeshPart1
+    2300004: Santa_Claus_MeshPart10
+    2300006: Santa_Claus_MeshPart11
+    2300008: Santa_Claus_MeshPart12
+    2300010: Santa_Claus_MeshPart13
+    2300012: Santa_Claus_MeshPart14
+    2300014: Santa_Claus_MeshPart15
+    2300016: Santa_Claus_MeshPart2
+    2300018: Santa_Claus_MeshPart3
+    2300020: Santa_Claus_MeshPart4
+    2300022: Santa_Claus_MeshPart5
+    2300024: Santa_Claus_MeshPart6
+    2300026: Santa_Claus_MeshPart7
+    2300028: Santa_Claus_MeshPart8
+    2300030: Santa_Claus_MeshPart9
+    3300000: Santa_Claus_MeshPart0
+    3300002: Santa_Claus_MeshPart1
+    3300004: Santa_Claus_MeshPart10
+    3300006: Santa_Claus_MeshPart11
+    3300008: Santa_Claus_MeshPart12
+    3300010: Santa_Claus_MeshPart13
+    3300012: Santa_Claus_MeshPart14
+    3300014: Santa_Claus_MeshPart15
+    3300016: Santa_Claus_MeshPart2
+    3300018: Santa_Claus_MeshPart3
+    3300020: Santa_Claus_MeshPart4
+    3300022: Santa_Claus_MeshPart5
+    3300024: Santa_Claus_MeshPart6
+    3300026: Santa_Claus_MeshPart7
+    3300028: Santa_Claus_MeshPart8
+    3300030: Santa_Claus_MeshPart9
+    4300000: Santa_Claus_MeshPart0
+    4300002: Santa_Claus_MeshPart1
+    4300004: Santa_Claus_MeshPart2
+    4300006: Santa_Claus_MeshPart3
+    4300008: Santa_Claus_MeshPart4
+    4300010: Santa_Claus_MeshPart5
+    4300012: Santa_Claus_MeshPart6
+    4300014: Santa_Claus_MeshPart7
+    4300016: Santa_Claus_MeshPart8
+    4300018: Santa_Claus_MeshPart9
+    4300020: Santa_Claus_MeshPart10
+    4300022: Santa_Claus_MeshPart11
+    4300024: Santa_Claus_MeshPart12
+    4300026: Santa_Claus_MeshPart13
+    4300028: Santa_Claus_MeshPart14
+    4300030: Santa_Claus_MeshPart15
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
