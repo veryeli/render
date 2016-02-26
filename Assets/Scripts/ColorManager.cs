@@ -81,6 +81,12 @@ public class ColorManager : MonoBehaviour
 			return "cyan";
 		case "bluemagenta":
 			return "yellow";
+		case "greenmagenta":
+			return "white";
+		case "cyanred":
+			return "white";
+		case "blueyellow":
+			return "white";
 		default:
 			return name;
 		}
