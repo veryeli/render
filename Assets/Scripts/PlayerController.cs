@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 		if (getColorAddMode ()) {
 			cm.setColor ("white");
 		} else {
-			cm.setColor ("black");
+			cm.setColor ("white");
 		}
 		;
 	}

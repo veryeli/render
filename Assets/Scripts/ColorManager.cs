@@ -31,64 +31,78 @@ public class ColorManager : MonoBehaviour
 		switch (name) {
 		case "bluered":
 			return "magenta";
+		case "redblue":
+			return "magenta";
 		case "bluegreen":
+			return "cyan";
+		case "greenblue":
 			return "cyan";
 		case "greenred":
 			return "yellow";
+		case "redgreen":
+			return "yellow";
 		case "cyanmagenta":
+			return "blue";
+		case "magentacyan":
 			return "blue";
 		case "magentayellow":
 			return "red";
+		case "yellowmagenta":
+			return "red";
 		case "cyanyellow":
+			return "green";
+		case "yellowcyan":
 			return "green";
 		case "cyanred":
 			return "black";
+		case "redcyan":
+			return "black";
 		case "greenmagenta":
 			return "black";
+		case "magentagreen":
+			return "black";
 		case "blueyellow":
+			return "black";
+		case "yellowblue":
 			return "black";
 		default:
 			return name;
 		}
 	}
 
+	// (Actually additive lol)
 	static string subtractiveColorName (string name)
 	{
 		print ("mushy subtractive name " + name);
 		switch (name) {
-		case "blackred":
+		case "whitered":
 			return "cyan";
-		case "blackgreen":
+		case "whitegreen":
 			return "magenta";
-		case "blackblue":
+		case "whiteblue":
 			return "yellow";
-		case "blackcyan":
-			return "red";
-		case "blackmagenta":
-			return "green";
-		case "blackyellow":
-			return "blue";
-		case "cyangreen":
-			return "magenta";
-		case "cyanblue":
-			return "yellow";
-		case "redyellow":
-			return "cyan";
-		case "greenyellow":
-			return "magenta";
-		case "magentared":
-			return "cyan";
-		case "bluemagenta":
-			return "yellow";
-		case "greenmagenta":
-			return "white";
 		case "cyanred":
-			return "white";
-		case "blueyellow":
-			return "white";
+			return "cyan";
+		case "magentared":
+			return "blue";
+		case "yellowred":
+			return "green";
+		case "cyangreen":
+			return "blue";
+		case "magentagreen":
+			return "magenta";
+		case "yellowgreen":
+			return "red";
+		case "cyanblue":
+			return "green";
+		case "magentablue":
+			return "red";
+		case "yellowblue":
+			return "yellow";
 		default:
 			return name;
 		}
+
 	}
 
 	static string colorComboFor (string one, string two)
@@ -100,22 +114,19 @@ public class ColorManager : MonoBehaviour
 		} else if (string.Compare (one, two) < 0) {
 			return colorName (one + two);
 		} else {
-			return colorName (two + one);
+			return colorName (one + two);
 		}
 
 	}
 
 	static string subtractiveComboFor (string one, string two)
 	{
-		if (one == two) {
-			return two;
-		} 
-		else if (two == "white" || one == "white") {
-			return "white";
-		} else if (string.Compare (one, two) < 0) {
-			return subtractiveColorName (one + two);
+		if (one == two || one == "black" || two == "white") {
+			return "black";
+		} else if (two == "black") {
+			return one;
 		} else {
-			return subtractiveColorName (two + one);
+			return subtractiveColorName (one + two);
 		}
 
 	}

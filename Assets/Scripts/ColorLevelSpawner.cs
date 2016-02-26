@@ -121,7 +121,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 	void SpawnSubtractiveWinRoom() {
 		int offset = 80;
 		GameObject[] pickups = SpawnPickUps(secondaries, offset);
-		SpawnWinPortal ("white", offset, pickups);
+		SpawnWinPortal ("black", offset, pickups);
 	}
 		
 	GameObject SpawnPickup(Vector3 pos, string color) {
