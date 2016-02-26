@@ -2,17 +2,22 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
 	private Rigidbody rb;
 	public float speed;
-	private bool colorAddMode = true;
+	private string colorAddMode = "add";
 	public GameObject portal;
 	public ColorManager cm;
+	public AudioClip collectSound;
+	public AudioClip portalSound;
+	public AudioClip boomSound;
+	public AudioClip showerSound;
 
 	// Use this for initialization
-	void Start () {
-		colorAddMode = true;
+	public void Start ()
+	{
 		rb = GetComponent<Rigidbody> ();
 	}
 
@@ -22,11 +27,11 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 		float moveUp = 0f;
-		if (Input.GetButton("Jump")) {
+		if (Input.GetButton ("Jump")) {
 			moveUp = 1f;
 		}
-		if (Input.GetButtonDown("Jump")) {
-			ToggleColorMode();
+		if (Input.GetButtonDown ("Jump")) {
+			ToggleColorMode ();
 		}
 
 
@@ -34,43 +39,46 @@ public class PlayerController : MonoBehaviour {
 		rb.AddForce (movement);
 	}
 
-	public void ToggleColorMode() {
-		colorAddMode = !colorAddMode;
+	public void ToggleColorMode ()
+	{
+		colorAddMode = (colorAddMode == "add") ? "subtract" : "add";
 	}
 
-	public bool getColorAddMode() {
-		return colorAddMode;
+	public bool getColorAddMode ()
+	{
+		return colorAddMode == "add";
 	}
 
-	void ResetColor() {
-		if (colorAddMode) {
+	public void ResetColor ()
+	{
+		if (getColorAddMode ()) {
 			cm.setColor ("white");
 		} else {
 			cm.setColor ("black");
 		}
+		;
 	}
 
-	IEnumerator OnTriggerEnter(Collider other)
+	IEnumerator OnTriggerEnter (Collider other)
 	{
 		if (other.gameObject.CompareTag ("showermat")) {
-			ResetColor();
+			ResetColor ();
+			AudioSource.PlayClipAtPoint(showerSound, transform.position);
 			GameObject showerObject = other.gameObject.transform.parent.gameObject;
-			showerObject.GetComponent<Shower>().resetAssociatedObjects ();
+			showerObject.GetComponent<Shower> ().resetAssociatedObjects ();
 			yield break;
 		}
 		if (other.gameObject.CompareTag ("winportal")) {
-			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel();
+			AudioSource.PlayClipAtPoint(portalSound, transform.position);
+			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel ();
 		}
 			
 
 		if (other.gameObject.CompareTag ("pickup")) {
 			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
+			AudioSource.PlayClipAtPoint(collectSound, transform.position);
 			other.gameObject.SetActive (false);
-			print ("Just bumped into a yummy snack...");
-			print (cm.color);
-			print (otherColor);
-			print (colorAddMode);
-			if (colorAddMode) {
+			if (getColorAddMode ()) {
 				cm.addColor (otherColor);
 			} else {
 				cm.subtractColor (otherColor);
@@ -80,10 +88,13 @@ public class PlayerController : MonoBehaviour {
 			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
 //			print("bumped into a portal");
 			if (cm.color == otherColor) {
+				AudioSource.PlayClipAtPoint (portalSound, transform.position);
 				GameObject portalObject = other.gameObject;
-				portalObject.GetComponent<Portal>().deleteAssociatedObjects ();
+				portalObject.GetComponent<Portal> ().deleteAssociatedObjects ();
 				portalObject.SetActive (false);
 				ResetColor ();
+			} else {
+				AudioSource.PlayClipAtPoint(boomSound, transform.position);
 			}
 		}
 	}

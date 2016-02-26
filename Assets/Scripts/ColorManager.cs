@@ -18,13 +18,11 @@ public class ColorManager : MonoBehaviour
 
 	public void addColor (string c)
 	{
-		rend = GetComponent<Renderer>();
 		setColor(colorComboFor (color, c));
 	}
 
 	public void subtractColor (string c)
 	{
-		rend = GetComponent<Renderer>();
 		setColor(subtractiveComboFor (color, c));
 	}
 
@@ -141,6 +139,7 @@ public class ColorManager : MonoBehaviour
 
 
 	public void setColor(string newColor) {
+		rend = GetComponent<Renderer>();
 		color = newColor;
 		rend.material.color = currentColor ();
 	}
