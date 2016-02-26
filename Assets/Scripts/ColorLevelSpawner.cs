@@ -130,11 +130,11 @@ public class ColorLevelSpawner : MonoBehaviour {
 	}
 
 	void SpawnPickupCircle(string color) {
-		numberOfObjects = 16;
+		numberOfObjects = 10;
 		for (int i = 0; i < numberOfObjects; i++) {
 			float angle = i * Mathf.PI * 2 / numberOfObjects;
 			pickup.transform.position = transform.position; 
-			Vector3 pos = new Vector3(Mathf.Cos(angle), 0.5f, Mathf.Sin(angle)) * 2; // original line
+			Vector3 pos = new Vector3(Mathf.Cos(angle), 0.3f, Mathf.Sin(angle)) * 2; // original line
 			GameObject show = (GameObject) Instantiate(pickup , pos, Quaternion.identity);
 			show.GetComponent<ColorManager>().addColor(color);
 		}
