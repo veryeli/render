@@ -3,17 +3,9 @@ using System.Collections;
 
 public class MakeAllChildrenSomeColor : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-
+	public void SetColor(Color c) {
 		foreach (Renderer child in GetComponentsInChildren(typeof(Renderer))) {
-			child.material.color = new Color (1, 0, 0);
+			child.material.color = c;
 		}
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

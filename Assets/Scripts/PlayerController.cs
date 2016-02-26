@@ -68,11 +68,6 @@ public class PlayerController : MonoBehaviour
 			showerObject.GetComponent<Shower> ().resetAssociatedObjects ();
 			yield break;
 		}
-//		if (other.gameObject.CompareTag ("winportal")) {
-//			AudioSource.PlayClipAtPoint(portalSound, transform.position);
-//			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel ();
-//		}
-			
 
 		if (other.gameObject.CompareTag ("pickup")) {
 			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;

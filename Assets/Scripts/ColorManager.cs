@@ -6,15 +6,14 @@ public class ColorManager : MonoBehaviour
 
 	public string color = "white";
 	private Renderer rend;
+	public GameObject stuff;
 	public Color white = new Color(1.0f, 1.0f, 1.0f);
 	public Color black = new Color(0.0f, 0.0f, 0.0f);
 
 	// Use this for initialization
 	void Start () {
-		rend = GetComponent<Renderer>();
-		rend.material.color = currentColor ();
+		setColor (color);
 	}
-		
 
 	public void addColor (string c)
 	{
@@ -142,11 +141,16 @@ public class ColorManager : MonoBehaviour
 			return white;
 		}
 	}
-
-
+		
 	public void setColor(string newColor) {
-		rend = GetComponent<Renderer>();
+		if (!rend) {
+			rend = GetComponent<Renderer> ();
+		}
 		color = newColor;
 		rend.material.color = currentColor ();
+		if (stuff) {
+			stuff.GetComponent<MakeAllChildrenSomeColor> ().SetColor (currentColor ());
+		}
 	}
+
 }
