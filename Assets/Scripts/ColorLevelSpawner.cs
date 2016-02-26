@@ -73,12 +73,23 @@ public class ColorLevelSpawner : MonoBehaviour {
 		SpawnPortal ("cyan", 0, pickups);
 	}
 	void SpawnShowerRoom() {
-		SpawnPickupCircle ("magenta");
-		SpawnWinPortal ("white", 0, new GameObject[]{});
+		GameObject[] pickups = SpawnPickupCircle ("magenta");
+		SpawnWinPortal ("white", 0, pickups);
 	}
 	void SpawnSecondShowerRoom() {
-		SpawnStandaloneRoom ();
-		SpawnPickupCircle ("magenta");
+		Vector3 cyanPos = new Vector3 (5, 0.5f, 5);
+		GameObject cyan = SpawnPickup(cyanPos, "cyan");
+		GameObject[] blockers = SpawnPickupCircle ("magenta");
+
+		GameObject[] pickups;
+		pickups = new GameObject[blockers.Length + 1];
+
+		for (int i = 0; i < blockers.Length; i++) {
+			pickups[i] = blockers [i];
+		}
+		pickups [blockers.Length] = cyan;
+
+		SpawnWinPortal ("cyan", 0, pickups);
 	}
 		
 	void SpawnWinRoom() {
@@ -113,6 +124,12 @@ public class ColorLevelSpawner : MonoBehaviour {
 		SpawnWinPortal ("white", offset, pickups);
 	}
 		
+	GameObject SpawnPickup(Vector3 pos, string color) {
+		GameObject pu = (GameObject) Instantiate(pickup, pos, Quaternion.identity);
+		pu.GetComponent<ColorManager>().addColor(color);
+
+		return pu;
+	}
 
 	// Item spawning
 	GameObject[] SpawnPickUps(string[] puColors, float zOffset) {
@@ -120,25 +137,29 @@ public class ColorLevelSpawner : MonoBehaviour {
 		pickups = new GameObject[puColors.Length];
 
 		for (int i = 0; i < puColors.Length; i++) {
-			Vector3 pos = new Vector3(4 * (puColors.Length / 2 - i), 0.5f, zOffset + 4);
-			GameObject pu = (GameObject) Instantiate(pickup, pos, Quaternion.identity);
-			pu.GetComponent<ColorManager>().addColor(puColors[i]);
-			pickups [i] = pu;
+			Vector3 pos = new Vector3 (4 * (puColors.Length / 2 - i), 0.5f, zOffset + 4);
+			pickups [i] = SpawnPickup(pos, puColors[i]);
 		}
 
 		return pickups;
 	}
 
-	void SpawnPickupCircle(string color) {
+	GameObject[] SpawnPickupCircle(string color) {
 		numberOfObjects = 10;
+
+		GameObject[] pickups;
+		pickups = new GameObject[numberOfObjects];
+
 		for (int i = 0; i < numberOfObjects; i++) {
 			float angle = i * Mathf.PI * 2 / numberOfObjects;
 			pickup.transform.position = transform.position; 
 			Vector3 pos = new Vector3(Mathf.Cos(angle), 0.3f, Mathf.Sin(angle)) * 2; // original line
 			GameObject show = (GameObject) Instantiate(pickup , pos, Quaternion.identity);
 			show.GetComponent<ColorManager>().addColor(color);
+			pickups [i] = show;
 		}
 
+		return pickups;
 	}
 
 	void SpawnPortal(string color, float zOffset, GameObject[] pickups) {
