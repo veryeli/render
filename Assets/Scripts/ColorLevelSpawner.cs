@@ -45,7 +45,6 @@ public class ColorLevelSpawner : MonoBehaviour {
 	}
 
 	// a simple standalone room
-	// 	Special additive color rooms
 	void SpawnStandaloneRoom() {
 		GameObject[] pickups = SpawnPickUps(new string[]{"cyan"}, 0);
 		SpawnWinPortal ("cyan", 0, pickups);
@@ -116,7 +115,6 @@ public class ColorLevelSpawner : MonoBehaviour {
 		
 
 	// Item spawning
-
 	GameObject[] SpawnPickUps(string[] puColors, float zOffset) {
 		GameObject[] pickups;
 		pickups = new GameObject[puColors.Length];
@@ -168,7 +166,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 	// state setting
 	void SetPlayerSubtractive() {
 		Vector3 pos = new Vector3(0, 0.5f, 0);
-		GameObject cam = (GameObject) Instantiate(mainCam, new Vector3(0, 3, -5), new Quaternion(0, 0, 0, 1));
+		GameObject cam = (GameObject) Instantiate(mainCam);
 		GameObject p = (GameObject) Instantiate(player, pos, Quaternion.identity);
 
 		p.GetComponent<PlayerController> ().Start ();
