@@ -68,10 +68,10 @@ public class PlayerController : MonoBehaviour
 			showerObject.GetComponent<Shower> ().resetAssociatedObjects ();
 			yield break;
 		}
-		if (other.gameObject.CompareTag ("winportal")) {
-			AudioSource.PlayClipAtPoint(portalSound, transform.position);
-			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel ();
-		}
+//		if (other.gameObject.CompareTag ("winportal")) {
+//			AudioSource.PlayClipAtPoint(portalSound, transform.position);
+//			yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel ();
+//		}
 			
 
 		if (other.gameObject.CompareTag ("pickup")) {
@@ -86,13 +86,16 @@ public class PlayerController : MonoBehaviour
 		}
 		if (other.gameObject.CompareTag ("portal")) {
 			string otherColor = other.gameObject.GetComponent<ColorManager> ().color;
-//			print("bumped into a portal");
 			if (cm.color == otherColor) {
 				AudioSource.PlayClipAtPoint (portalSound, transform.position);
 				GameObject portalObject = other.gameObject;
 				portalObject.GetComponent<Portal> ().deleteAssociatedObjects ();
 				portalObject.SetActive (false);
 				ResetColor ();
+				if (portalObject.GetComponent<Portal> ().portalType == "win") {
+					AudioSource.PlayClipAtPoint(portalSound, transform.position);
+					yield return GameObject.Find ("GM").GetComponent<Fading> ().LoadNextLevel ();
+				}
 			} else {
 				AudioSource.PlayClipAtPoint(boomSound, transform.position);
 			}

@@ -18,7 +18,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 	void Start () {
 		print (level);
 		if (level == 1) {
-			SpawnFirstRoom ();
+			SpawnStandaloneRoom ();
 		}
 		if (level == 2) {
 			SpawnShowerRoom ();
@@ -42,6 +42,13 @@ public class ColorLevelSpawner : MonoBehaviour {
 			SetPlayerSubtractive ();
 		}
 	
+	}
+
+	// a simple standalone room
+	// 	Special additive color rooms
+	void SpawnStandaloneRoom() {
+		GameObject[] pickups = SpawnPickUps(new string[]{"cyan"}, 0);
+		SpawnWinPortal ("cyan", 0, pickups);
 	}
 
 	// basic additive color rooms
@@ -68,17 +75,17 @@ public class ColorLevelSpawner : MonoBehaviour {
 	}
 	void SpawnShowerRoom() {
 		SpawnPickupCircle ("magenta");
-		SpawnPortal ("white", 0, new GameObject[]{});
+		SpawnWinPortal ("white", 0, new GameObject[]{});
 	}
 	void SpawnSecondShowerRoom() {
-		SpawnFirstRoom ();
+		SpawnStandaloneRoom ();
 		SpawnPickupCircle ("magenta");
 	}
 		
 	void SpawnWinRoom() {
 		int offset = 80;
 		GameObject[] pickups = SpawnPickUps(primaries, offset);
-		SpawnPortal ("black", offset, pickups);
+		SpawnWinPortal ("black", offset, pickups);
 	}
 
 	// Subtractive Rooms
@@ -104,7 +111,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 	void SpawnSubtractiveWinRoom() {
 		int offset = 80;
 		GameObject[] pickups = SpawnPickUps(secondaries, offset);
-		SpawnPortal ("white", offset, pickups);
+		SpawnWinPortal ("white", offset, pickups);
 	}
 		
 
@@ -137,6 +144,15 @@ public class ColorLevelSpawner : MonoBehaviour {
 	}
 
 	void SpawnPortal(string color, float zOffset, GameObject[] pickups) {
+		SpawnPortalType (color, zOffset, pickups, "normal");
+	}
+
+
+	void SpawnWinPortal(string color, float zOffset, GameObject[] pickups) {
+		SpawnPortalType (color, zOffset, pickups, "win");
+	}
+
+	void SpawnPortalType(string color, float zOffset, GameObject[] pickups, string portalType) {
 		Vector3 showerPos = new Vector3(5f, 0.0f, zOffset + 9);
 		GameObject showerObject = (GameObject) Instantiate(shower, showerPos, new Quaternion(0, 210, 0, 0));
 		showerObject.GetComponent<Shower>().setPickups (pickups);
@@ -146,6 +162,7 @@ public class ColorLevelSpawner : MonoBehaviour {
 		portalObject.GetComponent<ColorManager>().addColor(color);
 		portalObject.GetComponent<Portal>().setPickups (pickups);
 		portalObject.GetComponent<Portal> ().shower = showerObject;
+		portalObject.GetComponent<Portal> ().portalType = portalType;
 	}
 
 	// state setting
